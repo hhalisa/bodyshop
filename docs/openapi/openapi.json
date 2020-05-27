@@ -8,10 +8,10 @@
     },
     "openapi": "3.0.0",
     "paths": {
-        "/appointment": {
+        "/appointment/{appointment_id}": {
 
         },
-        "/appointment/{appointment_id}": {
+        "/appointments": {
 
         }
     }

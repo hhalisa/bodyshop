@@ -1,8 +1,4 @@
 {
-  appt:: {
-    url:: '/appointment',
-  },
-  appt_list:: {
-    url:: '/appointment/{appointment_id}',
-  },
+  appt:: import 'appointment.libsonnet',
+  appt_list:: import 'appointment-list.libsonnet',
 }
