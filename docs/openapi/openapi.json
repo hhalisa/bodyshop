@@ -5,5 +5,87 @@
         "name": "Haley Hartsaw",
         "title": "Bodyshop",
         "version": "1.0.0"
-    }
+    },
+    "openapi": "3.0.0",
+    "paths": {
+        "/appointments": {
+            "get": {
+                "description": "",
+                "operationId": "appointment-list",
+                "responses": {
+
+                },
+                "summary": "List of all Appointments.",
+                "tags": [
+                    "appointment"
+                ]
+            }
+        },
+        "/appointments/{appointment_id}": {
+            "get": {
+                "description": "",
+                "operationId": "appointment",
+                "parameters": [
+                    {
+                        "description": "ID of Appointment made.",
+                        "in": "path",
+                        "name": "appointment_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "summary": "Get Appointment Information.",
+                "tags": [
+                    "appointment"
+                ]
+            }
+        },
+        "/clients": {
+            "get": {
+                "description": "",
+                "operationId": "client-list",
+                "summary": "List of all Clients.",
+                "tags": [
+                    "client"
+                ]
+            }
+        },
+        "/clients/{client_id}": {
+            "get": {
+                "description": "",
+                "operationId": "client",
+                "parameters": [
+                    {
+                        "description": "Client ID.",
+                        "in": "path",
+                        "name": "client_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "summary": "Get Client Information.",
+                "tags": [
+                    "client"
+                ]
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "appointment"
+        },
+        {
+            "name": "client"
+        },
+        {
+            "name": "vehicle"
+        },
+        {
+            "name": "service"
+        }
+    ]
 }
