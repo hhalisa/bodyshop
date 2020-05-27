@@ -1,6 +1,9 @@
 {
     "info": {
         "contact": "haleyhart123@gmail.com",
-        "name": "Haley Hartsaw"
+        "description": "This app allows persons to schedule, edit or delete\nappointments made for vehicle maintenance at the Bodyshop\n",
+        "name": "Haley Hartsaw",
+        "title": "Bodyshop",
+        "version": "1.0.0"
     }
 }
