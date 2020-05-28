@@ -1,19 +1,19 @@
 local tag = import 'tags/main.libsonnet';
 
 {
-  url:: '/appointment/{appointment_id}',
+  url:: '/vehicles/{vehicle_id}',
   get: {
     tags: [
-      tag.appointment,
+      tag.vehicle,
     ],
-    summary: 'Get Appointment Information.',
+    summary: 'Get information on a vehicle.',
     description: '',
-    operationId: 'appointment',
+    operationId: 'vehicle_id',
     parameters: [
       {
-        name: 'appointment_id',
+        name: 'vehicle_id',
         'in': 'path',
-        description: 'ID of Appointment made.',
+        description: 'Vehicle ID.',
         required: true,
         schema: { type: 'integer' },
       },

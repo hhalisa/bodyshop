@@ -3,6 +3,12 @@ local path = import 'paths/main.libsonnet';
 local active_paths = [
   path.appt,
   path.appt_list,
+  path.client,
+  path.client_list,
+  path.service,
+  path.service_list,
+  path.vehicle,
+  path.vehicle_list,
 ];
 
 local info = {
