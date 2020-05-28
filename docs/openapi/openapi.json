@@ -14,7 +14,17 @@
 
         },
         "/appointments": {
+            "get": {
+                "description": "",
+                "operationId": "appointment-list",
+                "responses": {
 
+                },
+                "summary": "List of all Appointments.",
+                "tags": [
+                    "appointment"
+                ]
+            }
         }
     }
 }

@@ -27,4 +27,15 @@ local openapi = {
   },
 };
 
-{ 'openapi.json': std.manifestJson(openapi) }
+local validation_config = {
+  lint: {
+    rules: {
+      'operation-tags-defined': 'off',
+    },
+  },
+};
+
+{
+  '.redocly.json': std.manifestJson(validation_config),
+  'openapi.json': std.manifestJson(openapi),
+}
