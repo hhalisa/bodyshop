@@ -12,8 +12,10 @@ local info = {
   |||,
   version: '1.0.0',
   title: 'Bodyshop',
-  contact: 'haleyhart123@gmail.com',
-  name: 'Haley Hartsaw',
+  contact: {
+    email: 'haleyhart123@gmail.com',
+    name: 'Haley Hartsaw',
+  },
 };
 
 local openapi = {
