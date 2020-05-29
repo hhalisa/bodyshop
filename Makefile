@@ -4,4 +4,4 @@ generate-openapi:
 
 .PHONY: validate-openapi
 validate-openapi: generate-openapi
-	openapi validate docs/openapi/openapi.json
+	openapi validate --config docs/openapi/.redocly.json docs/openapi/openapi.json

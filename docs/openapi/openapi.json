@@ -11,10 +11,152 @@
     "openapi": "3.0.0",
     "paths": {
         "/appointment/{appointment_id}": {
+            "get": {
+                "description": "",
+                "operationId": "appointment",
+                "parameters": [
+                    {
+                        "description": "ID of Appointment made.",
+                        "in": "path",
+                        "name": "appointment_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
 
+                },
+                "summary": "Get Appointment Information.",
+                "tags": [
+                    "appointment"
+                ]
+            }
         },
         "/appointments": {
+            "get": {
+                "description": "",
+                "operationId": "appointment-list",
+                "responses": {
 
+                },
+                "summary": "List of all Appointments.",
+                "tags": [
+                    "appointment"
+                ]
+            }
+        },
+        "/clients": {
+            "get": {
+                "description": "",
+                "operationId": "client-list",
+                "responses": {
+
+                },
+                "summary": "List of all Clients.",
+                "tags": [
+                    "client"
+                ]
+            }
+        },
+        "/clients/{client_id}": {
+            "get": {
+                "description": "",
+                "operationId": "client",
+                "parameters": [
+                    {
+                        "description": "Client ID.",
+                        "in": "path",
+                        "name": "client_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+
+                },
+                "summary": "Get Client Information.",
+                "tags": [
+                    "client"
+                ]
+            }
+        },
+        "/services": {
+            "get": {
+                "description": "",
+                "operationId": "service_list",
+                "responses": {
+
+                },
+                "summary": "Get a list of all services.",
+                "tags": [
+                    "service"
+                ]
+            }
+        },
+        "/services/{service_id}": {
+            "get": {
+                "description": "",
+                "operationId": "service_id",
+                "parameters": [
+                    {
+                        "description": "Service ID.",
+                        "in": "path",
+                        "name": "service_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+
+                },
+                "summary": "Get information on a service.",
+                "tags": [
+                    "service"
+                ]
+            }
+        },
+        "/vehicle": {
+            "get": {
+                "description": "",
+                "operationId": "vehicle_list",
+                "responses": {
+
+                },
+                "summary": "Get a list of all vehicles.",
+                "tags": [
+                    "vehicle"
+                ]
+            }
+        },
+        "/vehicle/{vehicle_id}": {
+            "get": {
+                "description": "",
+                "operationId": "vehicle_id",
+                "parameters": [
+                    {
+                        "description": "Vehicle ID.",
+                        "in": "path",
+                        "name": "vehicle_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+
+                },
+                "summary": "Get information on a vehicle.",
+                "tags": [
+                    "vehicle"
+                ]
+            }
         }
     }
 }

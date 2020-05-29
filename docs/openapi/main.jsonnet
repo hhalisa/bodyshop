@@ -3,6 +3,12 @@ local path = import 'paths/main.libsonnet';
 local active_paths = [
   path.appt,
   path.appt_list,
+  path.client,
+  path.client_list,
+  path.service,
+  path.service_list,
+  path.vehicle,
+  path.vehicle_list,
 ];
 
 local info = {
@@ -27,4 +33,15 @@ local openapi = {
   },
 };
 
-{ 'openapi.json': std.manifestJson(openapi) }
+local validation_config = {
+  lint: {
+    rules: {
+      'operation-tags-defined': 'off',
+    },
+  },
+};
+
+{
+  '.redocly.json': std.manifestJson(validation_config),
+  'openapi.json': std.manifestJson(openapi),
+}
