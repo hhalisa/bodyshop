@@ -10,30 +10,6 @@
     },
     "openapi": "3.0.0",
     "paths": {
-        "/appointment/{appointment_id}": {
-            "get": {
-                "description": "",
-                "operationId": "appointment",
-                "parameters": [
-                    {
-                        "description": "ID of Appointment made.",
-                        "in": "path",
-                        "name": "appointment_id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-
-                },
-                "summary": "Get Appointment Information.",
-                "tags": [
-                    "appointment"
-                ]
-            }
-        },
         "/appointments": {
             "get": {
                 "description": "",
@@ -42,6 +18,98 @@
 
                 },
                 "summary": "List of all Appointments.",
+                "tags": [
+                    "appointment"
+                ]
+            },
+            "post": {
+                "description": "",
+                "operationId": "appointment_scheduled",
+                "requestBody": [
+                    [
+                        {
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "appointment_id": {
+                                                "type": "string"
+                                            },
+                                            "service_date": {
+                                                "type": "string"
+                                            },
+                                            "service_id": {
+                                                "type": "string"
+                                            },
+                                            "service_time": {
+                                                "type": "string"
+                                            },
+                                            "vehicle_id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            },
+                            "description": "Schedule an Appointment"
+                        }
+                    ]
+                ],
+                "responses": {
+
+                },
+                "summary": "Schedule an appointment.",
+                "tags": [
+                    "appointment"
+                ]
+            }
+        },
+        "/appointments/{appointment_id}": {
+            "delete": {
+                "description": "",
+                "operationId": "appointment_del",
+                "parameters": [
+                    [
+                        {
+                            "description": "Appointment ID.",
+                            "in": "path",
+                            "name": "appointment_id",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
+                        }
+                    ]
+                ],
+                "responses": {
+
+                },
+                "summary": "Delete appointment.",
+                "tags": [
+                    "appointment"
+                ]
+            },
+            "get": {
+                "description": "",
+                "operationId": "appointment",
+                "parameters": [
+                    [
+                        {
+                            "description": "Appointment ID.",
+                            "in": "path",
+                            "name": "appointment_id",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
+                        }
+                    ]
+                ],
+                "responses": {
+
+                },
+                "summary": "Get Appointment Information.",
                 "tags": [
                     "appointment"
                 ]
@@ -58,22 +126,84 @@
                 "tags": [
                     "client"
                 ]
+            },
+            "post": {
+                "description": "",
+                "operationId": "client_create",
+                "requestBody": [
+                    [
+                        {
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "client_id": {
+                                                "type": "string"
+                                            },
+                                            "client_name": {
+                                                "type": "string"
+                                            },
+                                            "client_phone": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            },
+                            "description": "Create a Client"
+                        }
+                    ]
+                ],
+                "responses": {
+
+                },
+                "summary": "Create a client.",
+                "tags": [
+                    "client"
+                ]
             }
         },
         "/clients/{client_id}": {
+            "delete": {
+                "description": "",
+                "operationId": "client_del",
+                "parameters": [
+                    [
+                        {
+                            "description": "Client ID.",
+                            "in": "path",
+                            "name": "client_id",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
+                        }
+                    ]
+                ],
+                "responses": {
+
+                },
+                "summary": "Delete a client.",
+                "tags": [
+                    "client"
+                ]
+            },
             "get": {
                 "description": "",
                 "operationId": "client",
                 "parameters": [
-                    {
-                        "description": "Client ID.",
-                        "in": "path",
-                        "name": "client_id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
+                    [
+                        {
+                            "description": "Client ID.",
+                            "in": "path",
+                            "name": "client_id",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
                         }
-                    }
+                    ]
                 ],
                 "responses": {
 
@@ -95,22 +225,84 @@
                 "tags": [
                     "service"
                 ]
+            },
+            "post": {
+                "description": "",
+                "operationId": "service_add",
+                "requestBody": [
+                    [
+                        {
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "service_id": {
+                                                "type": "string"
+                                            },
+                                            "service_price": {
+                                                "type": "string"
+                                            },
+                                            "service_type": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            },
+                            "description": "Add a Service"
+                        }
+                    ]
+                ],
+                "responses": {
+
+                },
+                "summary": "Add a service.",
+                "tags": [
+                    "service"
+                ]
             }
         },
         "/services/{service_id}": {
+            "delete": {
+                "description": "",
+                "operationId": "service_del",
+                "parameters": [
+                    [
+                        {
+                            "description": "Service ID.",
+                            "in": "path",
+                            "name": "service_id",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
+                        }
+                    ]
+                ],
+                "responses": {
+
+                },
+                "summary": "Delete a service.",
+                "tags": [
+                    "service"
+                ]
+            },
             "get": {
                 "description": "",
                 "operationId": "service_id",
                 "parameters": [
-                    {
-                        "description": "Service ID.",
-                        "in": "path",
-                        "name": "service_id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
+                    [
+                        {
+                            "description": "Service ID.",
+                            "in": "path",
+                            "name": "service_id",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
                         }
-                    }
+                    ]
                 ],
                 "responses": {
 
@@ -121,7 +313,7 @@
                 ]
             }
         },
-        "/vehicle": {
+        "/vehicles": {
             "get": {
                 "description": "",
                 "operationId": "vehicle_list",
@@ -132,22 +324,93 @@
                 "tags": [
                     "vehicle"
                 ]
+            },
+            "post": {
+                "description": "",
+                "operationId": "vehicle_add",
+                "requestBody": [
+                    [
+                        {
+                            "content": {
+                                "application/json": {
+                                    "schema": {
+                                        "properties": {
+                                            "client_id": {
+                                                "type": "string"
+                                            },
+                                            "vehicle_id": {
+                                                "type": "string"
+                                            },
+                                            "vehicle_make": {
+                                                "type": "string"
+                                            },
+                                            "vehicle_milage": {
+                                                "type": "string"
+                                            },
+                                            "vehicle_model": {
+                                                "type": "string"
+                                            },
+                                            "vehicle_year": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            },
+                            "description": "Add a Vehicle"
+                        }
+                    ]
+                ],
+                "responses": {
+
+                },
+                "summary": "Add a vehicle.",
+                "tags": [
+                    "vehicle"
+                ]
             }
         },
-        "/vehicle/{vehicle_id}": {
+        "/vehicles/{vehicle_id}": {
+            "delete": {
+                "description": "",
+                "operationId": "vehicle_del",
+                "parameters": [
+                    [
+                        {
+                            "description": "Vehicle ID.",
+                            "in": "path",
+                            "name": "vehicle_id",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
+                        }
+                    ]
+                ],
+                "responses": {
+
+                },
+                "summary": "Delete a vehicle.",
+                "tags": [
+                    "vehicle"
+                ]
+            },
             "get": {
                 "description": "",
                 "operationId": "vehicle_id",
                 "parameters": [
-                    {
-                        "description": "Vehicle ID.",
-                        "in": "path",
-                        "name": "vehicle_id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
+                    [
+                        {
+                            "description": "Vehicle ID.",
+                            "in": "path",
+                            "name": "vehicle_id",
+                            "required": true,
+                            "schema": {
+                                "type": "integer"
+                            }
                         }
-                    }
+                    ]
                 ],
                 "responses": {
 
