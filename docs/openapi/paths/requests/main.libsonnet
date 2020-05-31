@@ -1,7 +1,7 @@
 {
-  appointment_request_body: [
+  appointment:
     {
-      description: 'Schedule an Appointment',
+      description: 'Create an Appointment',
       content: {
         'application/json': {
           schema: {
@@ -17,8 +17,7 @@
         },
       },
     },
-  ],
-  client_request_body: [
+  client:
     {
       description: 'Create a Client',
       content: {
@@ -34,10 +33,9 @@
         },
       },
     },
-  ],
-  service_request_body: [
+  service:
     {
-      description: 'Add a Service',
+      description: 'Create a Service',
       content: {
         'application/json': {
           schema: {
@@ -51,10 +49,9 @@
         },
       },
     },
-  ],
-  vehicle_request_body: [
+  vehicle:
     {
-      description: 'Add a Vehicle',
+      description: 'Create a Vehicle',
       content: {
         'application/json': {
           schema: {
@@ -71,5 +68,4 @@
         },
       },
     },
-  ],
 }

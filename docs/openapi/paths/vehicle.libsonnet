@@ -1,4 +1,5 @@
 local parameter = import 'parameters/main.libsonnet';
+local response = import 'response/main.libsonnet';
 local tag = import 'tags/main.libsonnet';
 
 local get = {
@@ -7,19 +8,19 @@ local get = {
   ],
   summary: 'Get information on a vehicle.',
   description: '',
-  operationId: 'vehicle_id',
+  operationId: 'vehicle-id',
+  responses: response.vehicle,
   parameters: [
     parameter.vehicle_id,
   ],
-  responses: {},
 };
 
 local delete = {
   tags: ['vehicle'],
   summary: 'Delete a vehicle.',
   description: '',
-  operationId: 'vehicle_del',
-  responses: {},
+  operationId: 'vehicle-delete',
+  responses: response.vehicle_delete,
   parameters: [
     parameter.vehicle_id,
   ],
