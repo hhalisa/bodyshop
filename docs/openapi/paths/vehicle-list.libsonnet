@@ -1,4 +1,5 @@
 local request = import 'requests/main.libsonnet';
+local response = import 'response/main.libsonnet';
 local tag = import 'tags/main.libsonnet';
 
 local get = {
@@ -7,19 +8,17 @@ local get = {
   ],
   summary: 'Get a list of all vehicles.',
   description: '',
-  operationId: 'vehicle_list',
-  responses: {},
+  operationId: 'vehicle-list',
+  responses: response.vehicle_list,
 };
 
 local post = {
   tags: ['vehicle'],
-  summary: 'Add a vehicle.',
+  summary: 'Create a vehicle.',
   description: '',
-  operationId: 'vehicle_add',
-  responses: {},
-  requestBody: [
-    request.vehicle_request_body,
-  ],
+  operationId: 'vehicle-create',
+  responses: response.vehicle_create,
+  requestBody: request.vehicle,
 };
 
 {

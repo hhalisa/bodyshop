@@ -1,4 +1,5 @@
 local request = import 'requests/main.libsonnet';
+local response = import 'response/main.libsonnet';
 local tag = import 'tags/main.libsonnet';
 
 local get = {
@@ -7,19 +8,17 @@ local get = {
   ],
   summary: 'Get a list of all services.',
   description: '',
-  operationId: 'service_list',
-  responses: {},
+  operationId: 'service-list',
+  responses: response.service_list,
 };
 
 local post = {
   tags: ['service'],
-  summary: 'Add a service.',
+  summary: 'Create a service.',
   description: '',
-  operationId: 'service_add',
-  responses: {},
-  requestBody: [
-    request.service_request_body,
-  ],
+  operationId: 'service-create',
+  responses: response.service_create,
+  requestBody: request.service,
 };
 
 {

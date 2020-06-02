@@ -1,5 +1,5 @@
 {
-  appointment_id: [
+  appointment_id:
     {
       name: 'appointment_id',
       'in': 'path',
@@ -7,8 +7,7 @@
       required: true,
       schema: { type: 'integer' },
     },
-  ],
-  client_id: [
+  client_id:
     {
       name: 'client_id',
       'in': 'path',
@@ -16,8 +15,7 @@
       required: true,
       schema: { type: 'integer' },
     },
-  ],
-  service_id: [
+  service_id:
     {
       name: 'service_id',
       'in': 'path',
@@ -25,8 +23,7 @@
       required: true,
       schema: { type: 'integer' },
     },
-  ],
-  vehicle_id: [
+  vehicle_id:
     {
       name: 'vehicle_id',
       'in': 'path',
@@ -34,6 +31,4 @@
       required: true,
       schema: { type: 'integer' },
     },
-  ],
-
 }

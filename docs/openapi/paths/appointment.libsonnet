@@ -1,4 +1,5 @@
 local parameter = import 'parameters/main.libsonnet';
+local response = import 'response/main.libsonnet';
 local tag = import 'tags/main.libsonnet';
 
 local get = {
@@ -11,18 +12,18 @@ local get = {
   parameters: [
     parameter.appointment_id,
   ],
-  responses: {},
+  responses: response.appointment,
 };
 
 local delete = {
   tags: ['appointment'],
   summary: 'Delete appointment.',
   description: '',
-  operationId: 'appointment_del',
+  operationId: 'appointment-delete',
   parameters: [
     parameter.appointment_id,
   ],
-  responses: {},
+  responses: response.appointment_delete,
 };
 
 {
