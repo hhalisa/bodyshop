@@ -547,6 +547,158 @@
                 ]
             }
         },
+        "/clients/{client_id}/history": {
+            "get": {
+                "description": "",
+                "operationId": "client-history",
+                "parameters": [
+                    {
+                        "description": "Client ID.",
+                        "in": "path",
+                        "name": "client_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "appointment": {
+                                            "appointment_date": "2020-03-09"
+                                        },
+                                        "client": {
+                                            "client_id": "11021"
+                                        },
+                                        "service": [
+                                            "State Inspection"
+                                        ],
+                                        "vehicle": [
+                                            {
+                                                "make": "Honda",
+                                                "model": "Accord",
+                                                "vehicle_id": "6124",
+                                                "year": "2020"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "appointment": {
+                                            "appointment_date": "2020-03-02"
+                                        },
+                                        "client": {
+                                            "client_id": "11021"
+                                        },
+                                        "service": [
+                                            "Oil Change",
+                                            "Fluid Check",
+                                            "Tire Rotation"
+                                        ],
+                                        "vehicle": [
+                                            {
+                                                "make": "Toyota",
+                                                "model": "Camry",
+                                                "vehicle_id": "6756",
+                                                "year": "2013"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "appointment": {
+                                            "appointment_date": "2020-06-01"
+                                        },
+                                        "client": {
+                                            "client_id": "11021"
+                                        },
+                                        "service": [
+                                            "State inspection"
+                                        ],
+                                        "vehicle": [
+                                            {
+                                                "make": "Toyota",
+                                                "model": "Camry",
+                                                "vehicle_id": "6756",
+                                                "year": "2013"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "schema": {
+                                    "description": "Client History",
+                                    "properties": {
+                                        "appointment": {
+                                            "items": {
+                                                "properties": {
+                                                    "appointment_date": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "client": {
+                                            "properties": {
+                                                "client_id": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "service": {
+                                            "items": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "vehicle": {
+                                            "items": {
+                                                "properties": {
+                                                    "make": {
+                                                        "type": "string"
+                                                    },
+                                                    "model": {
+                                                        "type": "string"
+                                                    },
+                                                    "vehicle_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "year": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "client_id"
+                                    ],
+                                    "title": "Client Info",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Client History Retrieved"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Get Client History.",
+                "tags": [
+                    "client"
+                ]
+            }
+        },
         "/services": {
             "get": {
                 "description": "",
@@ -619,7 +771,7 @@
                         "description": "Bad Request"
                     }
                 },
-                "summary": "Get a list of all services.",
+                "summary": "List of all Services.",
                 "tags": [
                     "service"
                 ]
@@ -775,7 +927,7 @@
                         "description": "Bad Request"
                     }
                 },
-                "summary": "Get information on a service.",
+                "summary": "Get Service Information.",
                 "tags": [
                     "service"
                 ]
@@ -869,7 +1021,7 @@
                         "description": "Bad Request"
                     }
                 },
-                "summary": "Get a list of all vehicles.",
+                "summary": "List of all Vehicles.",
                 "tags": [
                     "vehicle"
                 ]
@@ -1053,7 +1205,113 @@
                         "description": "Bad Request"
                     }
                 },
-                "summary": "Get information on a vehicle.",
+                "summary": "Get Vehicle Information.",
+                "tags": [
+                    "vehicle"
+                ]
+            }
+        },
+        "/vehicles/{vehicle_id}/history": {
+            "get": {
+                "description": "",
+                "operationId": "vehicle-hist",
+                "parameters": [
+                    {
+                        "description": "Vehicle ID.",
+                        "in": "path",
+                        "name": "vehicle_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "appointment": {
+                                            "appointment_date": "2020-03-02"
+                                        },
+                                        "service": [
+                                            "Fluid Check",
+                                            "Oil Change",
+                                            "Tire Rotation"
+                                        ],
+                                        "vehicle": {
+                                            "make": "Toyota ",
+                                            "model": "Camry",
+                                            "vehicle_id": "6756",
+                                            "year": "2013"
+                                        }
+                                    },
+                                    {
+                                        "appointment": {
+                                            "appointment_date": "2020-06-01"
+                                        },
+                                        "service": [
+                                            "State Inspection"
+                                        ],
+                                        "vehicle": {
+                                            "make": "Toyota ",
+                                            "model": "Camry",
+                                            "vehicle_id": "6756",
+                                            "year": "2013"
+                                        }
+                                    }
+                                ],
+                                "schema": {
+                                    "description": "Vehicle History",
+                                    "properties": {
+                                        "appointment": {
+                                            "properties": {
+                                                "appointment_date": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "service": {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "vehicle": {
+                                            "properties": {
+                                                "make": {
+                                                    "type": "string"
+                                                },
+                                                "model": {
+                                                    "type": "string"
+                                                },
+                                                "vehicle_id": {
+                                                    "type": "string"
+                                                },
+                                                "year": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "required": [
+                                        "vehicle_id"
+                                    ],
+                                    "title": "Vehicle History",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Vehicle History Retrieved"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Get Vehicle Service History.",
                 "tags": [
                     "vehicle"
                 ]

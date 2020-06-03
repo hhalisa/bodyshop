@@ -296,6 +296,126 @@
         description: 'Bad Request',
       },
     },
+  client_history:
+    {
+      '200': {
+        description: 'Client History Retrieved',
+        content: {
+          'application/json': {
+            schema: {  //    '$schema': 'http://json-schema.org/draft-07/schema#',//    '$id': 'http://example.com/product.schema.json',
+              title: 'Client Info',
+              description: 'Client History',
+              type: 'object',
+              properties: {
+                client: {
+                  type: 'object',
+                  properties: {
+                    client_id: { type: 'string' },
+                  },
+                },
+                vehicle: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      vehicle_id: { type: 'string' },
+                      make: { type: 'string' },
+                      model: { type: 'string' },
+                      year: { type: 'string' },
+                    },
+                  },
+                },
+                service: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    items: {
+                      type: 'string',
+                    },
+                  },
+                },
+                appointment: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      appointment_date: { type: 'string' },
+                    },
+                  },
+                },
+              },
+              required: [
+                'client_id',
+              ],
+            },
+            example: [
+              {
+                client: {
+                  client_id: '11021',
+                },
+                vehicle: [
+                  {
+                    vehicle_id: '6124',
+                    make: 'Honda',
+                    model: 'Accord',
+                    year: '2020',
+                  },
+                ],
+                service: [
+                  'State Inspection',
+                ],
+                appointment: {
+                  appointment_date: '2020-03-09',
+                },
+              },
+              {
+                client: {
+                  client_id: '11021',
+                },
+                vehicle: [
+                  {
+                    vehicle_id: '6756',
+                    make: 'Toyota',
+                    model: 'Camry',
+                    year: '2013',
+                  },
+                ],
+                service: [
+                  'Oil Change',
+                  'Fluid Check',
+                  'Tire Rotation',
+                ],
+                appointment: {
+                  appointment_date: '2020-03-02',
+                },
+              },
+              {
+                client: {
+                  client_id: '11021',
+                },
+                vehicle: [
+                  {
+                    vehicle_id: '6756',
+                    make: 'Toyota',
+                    model: 'Camry',
+                    year: '2013',
+                  },
+                ],
+                service: [
+                  'State inspection',
+                ],
+                appointment: {
+                  appointment_date: '2020-06-01',
+                },
+              },
+            ],
+          },
+        },
+      },
+      '400': {
+        description: 'Bad Request',
+      },
+    },
   client_create: {
     '201': {
       description: 'Client Successfully Created',
@@ -596,6 +716,82 @@
                 milage: '506',
               },
             },
+          },
+        },
+      },
+      '400': {
+        description: 'Bad Request',
+      },
+    },
+  vehicle_history:
+    {
+      '200': {
+        description: 'Vehicle History Retrieved',
+        content: {
+          'application/json': {
+            schema: {  //    '$schema': 'http://json-schema.org/draft-07/schema#',//    '$id': 'http://example.com/product.schema.json',
+              title: 'Vehicle History',
+              description: 'Vehicle History',
+              type: 'object',
+              properties: {
+                vehicle: {
+                  type: 'object',
+                  properties: {
+                    vehicle_id: { type: 'string' },
+                    make: { type: 'string' },
+                    model: { type: 'string' },
+                    year: { type: 'string' },
+                  },
+                },
+                appointment: {
+                  type: 'object',
+                  properties: {
+                    appointment_date: { type: 'string' },
+                  },
+                },
+                service: {
+                  type: 'array',
+                  items: {
+                    type: 'string',
+                  },
+                },
+              },
+              required: [
+                'vehicle_id',
+              ],
+            },
+            example: [
+              {
+                vehicle: {
+                  vehicle_id: '6756',
+                  make: 'Toyota ',
+                  model: 'Camry',
+                  year: '2013',
+                },
+                appointment: {
+                  appointment_date: '2020-03-02',
+                },
+                service: [
+                  'Fluid Check',
+                  'Oil Change',
+                  'Tire Rotation',
+                ],
+              },
+              {
+                vehicle: {
+                  vehicle_id: '6756',
+                  make: 'Toyota ',
+                  model: 'Camry',
+                  year: '2013',
+                },
+                appointment: {
+                  appointment_date: '2020-06-01',
+                },
+                service: [
+                  'State Inspection',
+                ],
+              },
+            ],
           },
         },
       },

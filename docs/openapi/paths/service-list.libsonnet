@@ -6,7 +6,7 @@ local get = {
   tags: [
     tag.service,
   ],
-  summary: 'Get a list of all services.',
+  summary: 'List of all Services.',
   description: '',
   operationId: 'service-list',
   responses: response.service_list,
