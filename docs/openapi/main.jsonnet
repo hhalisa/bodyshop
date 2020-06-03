@@ -9,6 +9,8 @@ local active_paths = [
   path.service_list,
   path.vehicle,
   path.vehicle_list,
+  path.vehicle_history,
+  path.client_history,
 ];
 
 local info = {

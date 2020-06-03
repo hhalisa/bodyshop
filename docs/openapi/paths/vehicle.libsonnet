@@ -6,7 +6,7 @@ local get = {
   tags: [
     tag.vehicle,
   ],
-  summary: 'Get information on a vehicle.',
+  summary: 'Get Vehicle Information.',
   description: '',
   operationId: 'vehicle-id',
   responses: response.vehicle,
