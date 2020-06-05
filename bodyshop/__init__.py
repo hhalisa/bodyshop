@@ -8,8 +8,8 @@ __version__ = '0.1.0'
 if __name__ == '__main__':
     try:
         con = psycopg2.connect(dbname='haley', user='haley')
-        c_hist = appt.get_client_history(con, "11021")
-        print(json.dumps(c_hist))
+        s = appt.vehicle_history(con, "6756")
+        print(json.dumps(s))
     except psycopg2.DatabaseError as e:
         print(f'Error {e}')
         sys.exit(1)
