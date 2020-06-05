@@ -1,16 +1,3 @@
-class client:
-
-    def __init__(self, client_id, fname, lname, telephone, *args):
-        self.client_id = client_id
-        self.fname = fname
-        self.lname = lname
-        self.telephone = telephone
-
-    def __str__(self):
-        formatted = f'{self.client_id} {self.fname} {self.lname} {self.telephone} '
-        return formatted
-
-
 def get_client(db, client_id):
     cur = db.cursor()
     stmt = '''
@@ -27,10 +14,25 @@ def get_client(db, client_id):
     '''
     cur.execute(stmt)
     cur.execute(f'execute get_client({client_id})')
-    data = cur.fetchall()[0]
+    ds = cur.fetchall()
     db.rollback()
 
-    c = client(data[0], data[1], data[2], data[3], data[4])
+    c = []
+    for v in ds:
+        x = {
+            'client': {
+                'client_id': v[0],
+                'name': v[1] + ' ' + v[2],
+                'phone': v[3],
+            },
+            'vehicle': [
+                {
+                    'vehicle_id': [v[4]],
+                },
+            ],
+        }
+        c.append(x)
+
     return c
 
 
@@ -65,8 +67,14 @@ def client_list(db, client_id):
 
     c_list = []
     for v in ds:
-        c = client(v[0], v[1], v[2], v[3])
-        c_list.append(c)
+        x = {
+            'client': {
+                'client_id': v[0],
+                'name': v[1] + ' ' + v[2],
+                'phone': v[3],
+            },
+        }
+        c_list.append(x)
 
     return c_list
 
@@ -123,11 +131,26 @@ def get_appointment(db, appointment_id):
     '''
     cur.execute(stmt)
     cur.execute(f"execute get_appointment('{appointment_id}')")
-    data = cur.fetchall()[0]
-
+    ds = cur.fetchall()
     db.rollback()
 
-    a = appointment(data[0], data[1], data[2], data[3], data[4])
+    a = []
+    for v in ds:
+        x = {
+            'appointment': {
+                'appointment_date': v[3].__str__(),
+                'appointment_id': v[0],
+            },
+            'client': {
+                'client_id': v[1],
+            },
+            'vehicle': [
+                {
+                    'vehicle_id': v[2],
+                },
+            ],
+        }
+        a.append(x)
 
     return a
 
@@ -166,24 +189,23 @@ def appointment_list(db, appointment_id):
 
     a_list = []
     for v in ds:
-        a = appointment(v[0], v[1], v[2], v[3], v[4])
-        a_list.append(a)
+        x = {
+            'appointment': {
+                'appointment_date': v[4].__str__(),
+                'appointment_id': v[0],
+            },
+            'client': {
+                'client_id': v[1],
+            },
+            'vehicle': [
+                {
+                    'vehicle_id': v[2],
+                },
+            ],
+        }
+        a_list.append(x)
 
     return a_list
-
-
-class vehicle:
-
-    def __init__(self, client_id, vehicle_id, make, model, year, *args):
-        self.client_id = client_id
-        self.vehicle_id = vehicle_id
-        self.make = make
-        self.model = model
-        self.year = year
-
-    def __str__(self):
-        formatted = f'{self.client_id} {self.vehicle_id} {self.make} {self.model} {self.year} '
-        return formatted
 
 
 def get_vehicle(db, vehicle_id):
@@ -191,23 +213,39 @@ def get_vehicle(db, vehicle_id):
     stmt = '''
         PREPARE get_vehicle AS
         SELECT
-        c.cid,
+        v.cid,
         v.vid,
         v.make,
         v.model,
         v.year,
         v.milage
-        FROM vehicle v, client c
+        FROM vehicle v 
         WHERE v.vid = $1
     '''
     cur.execute(stmt)
     cur.execute(f'execute get_vehicle({vehicle_id})')
-    data = cur.fetchall()[0]
+    ds = cur.fetchall()
     db.rollback()
 
-    v = vehicle(data[0], data[1], data[2], data[3], data[4], data[5])
+    gv = []
+    for v in ds:
+        x = {
+            'client': {
+                'client_id': v[0],
+            },
+            'vehicle': [
+                {
+                    'make': v[2],
+                    'model': v[3],
+                    'year': v[4],
+                    'vehicle_id': v[1],
+                    'milage': v[5],
+                },
+            ],
+        }
+        gv.append(x)
 
-    return v
+    return gv
 
 
 def delete_vehicle(db, vehicle_id):
@@ -243,39 +281,47 @@ def vehicle_list(db, vehicle_id):
 
     v_list = []
     for v in ds:
-        v = vehicle(v[0], v[1], v[2], v[3], v[4])
-        v_list.append(v)
+        x = {
+            'client': {
+                'client_id': v[0],
+            },
+            'vehicle': [
+                {
+                    'make': v[2],
+                    'model': v[3],
+                    'year': v[4],
+                    'vehicle_id': v[1],
+                },
+            ],
+        }
+        v_list.append(x)
 
     return v_list
-
-
-class service:
-
-    def __init__(self, service_id, service_type, price, *args):
-        self.service_id = service_id
-        self.service_type = service_type
-        self.price = price
-
-    def __str__(self):
-        formatted = f'{self.service_id} {self.service_type} {self.price}'
-        return formatted
 
 
 def get_service(db, service_id):
     cur = db.cursor()
     stmt = '''
         PREPARE get_service AS
-        SELECT *
-        FROM service
+        SELECT s.sid, s.type, s.price 
+        FROM service s
         WHERE sid = $1
     '''
     cur.execute(stmt)
     cur.execute(f'execute get_service({service_id})')
-    data = cur.fetchall()[0]
-
+    ds = cur.fetchall()
     db.rollback()
 
-    s = service(data[0], data[1], data[2])
+    s = []
+    for v in ds:
+        x = {
+            'service': {
+                'price': v[2],
+                'service_id': v[0],
+                'service_type': v[1],
+            },
+        }
+        s.append(x)
 
     return s
 
@@ -297,8 +343,8 @@ def service_list(db, service_id):
     cur = db.cursor()
     stmt = '''
         PREPARE service_list AS
-        SELECT *
-        FROM service
+        SELECT s.sid, s.type, s.price 
+        FROM service s
     '''
     cur.execute(stmt)
     cur.execute(f'execute service_list({service_id})')
@@ -307,7 +353,15 @@ def service_list(db, service_id):
 
     s_list = []
     for v in ds:
-        s = service(v[0], v[1], v[2])
+        s = {
+            'service': [
+                {
+                    'price_in_dollars': v[2],
+                    'service_id': v[0],
+                    'service_type': v[1],
+                },
+            ],
+        }
         s_list.append(s)
 
     return s_list
@@ -325,22 +379,7 @@ class scheduled_service:
         return formatted
 
 
-class vehicle_history:
-
-    def __init__(self, vehicle_id, make, model, year, appointment_date, service_type, *args):
-        self.vehicle_id = vehicle_id
-        self.make = make
-        self.model = model
-        self.year = year
-        self.appointment_date = appointment_date
-        self.service_type = service_type
-
-    def __str__(self):
-        formatted = f' {self.vehicle_id} {self.make} {self.model} {self.year} {self.appointment_date} {self.service_type}'
-        return formatted
-
-
-def get_vehicle_history(db, vehicle_id):
+def vehicle_history(db, vehicle_id):
     cur = db.cursor()
     stmt = '''
         PREPARE vehicle_history AS
@@ -362,29 +401,26 @@ def get_vehicle_history(db, vehicle_id):
 
     v_history = []
     for v in ds:
-        v = vehicle_history(v[0], v[1], v[2], v[3], v[4], v[5])
-        v_history.append(v)
+        hist = {
+            'appointment': {
+                'appointment_date': v[4].__str__(),
+            },
+            'service': [v[5]],
+            'vehicle': [
+                {
+                    'make': v[1],
+                    'model': v[2],
+                    'year': v[3],
+                    'vehicle_id': v[0],
+                },
+            ],
+        }
+        v_history.append(hist)
 
     return v_history
 
 
-class client_history:
-
-    def __init__(self, client_id, vehicle_id, make, model, year, appointment_date, service_type, *args):
-        self.client_id = client_id
-        self.vehicle_id = vehicle_id
-        self.make = make
-        self.model = model
-        self.year = year
-        self.appointment_date = appointment_date
-        self.service_type = service_type
-
-    def __str__(self):
-        formatted = f' {self.client_id} {self.vehicle_id} {self.make} {self.model} {self.year} {self.appointment_date} {self.service_type}'
-        return formatted
-
-
-def get_client_history(db, client_id):
+def client_history(db, client_id):
     cur = db.cursor()
     stmt = '''
         PREPARE client_history AS
@@ -420,7 +456,6 @@ def get_client_history(db, client_id):
                 },
             ],
         }
-        #c = client_history(v[0], v[1], v[2], v[3], v[4], v[5], v[6])
         c_history.append(hist)
 
     return c_history
