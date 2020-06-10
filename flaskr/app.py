@@ -1,7 +1,16 @@
-from flask import Flask, request, Response
-import bodyshopdb
+from flask import Flask, request, Response, jsonify
+#import bodyshopdb
+
 
 app = Flask(__name__)
+
+
+def create_app(test_config=None):
+    app = Flask(__name__)
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+    )
 
 # client
 # service
@@ -12,6 +21,8 @@ app = Flask(__name__)
 @app.route('/appointments', methods=['GET', 'POST'])
 def appointment_list():
     if request.method == 'GET':
+        #        d = get_appointment()
+        #        return jsonify(d)
         return Response(status=501)
     if request.method == 'POST':
         return Response(status=501)
@@ -42,7 +53,7 @@ def client(client):
 
 
 @app.route('/clients/<client>/history', methods=['GET'])
-def client(client):
+def client_history(client):
     if request.method == 'GET':
         return Response(status=501)
 
@@ -64,7 +75,7 @@ def vehicle(vehicle):
 
 
 @app.route('/vehicles/<vehicle>/history', methods=['GET'])
-def vehicle(vehicle):
+def vehicle_history(vehicle):
     if request.method == 'GET':
         return Response(status=501)
 
