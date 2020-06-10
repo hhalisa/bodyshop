@@ -438,6 +438,15 @@ def get_client_history(db, client_id):
 
     c_history = []
     for row in ds:
+        record_exists = False
+        for h in c_history:
+            if row[5].__str__() != h['appointment']['appointment_date']:
+                continue
+            h['service'].append(row[6])
+            record_exists = True
+            break
+        if record_exists:
+            continue
         hist = {
             'appointment': {
                 'appointment_date': row[5].__str__(),
@@ -445,7 +454,7 @@ def get_client_history(db, client_id):
             'client': {
                 'client_id': row[0],
             },
-            'service': [],
+            'service': [row[6]],
             'vehicle': [
                 {
                     'make': row[2],
@@ -455,13 +464,7 @@ def get_client_history(db, client_id):
                 },
             ],
         }
-    c_history.append(hist)
-    for row in ds:
-        s_type = row[6]
-        s = {
-            'service_type': s_type
-        }
-        hist['service'].append(s_type)
+        c_history.append(hist)
     # for v in hist:
   #  s = {
   #      'service': [
