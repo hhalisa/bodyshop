@@ -40,7 +40,9 @@ def client_list():
         body = models.get_client_list(db)
         return jsonify(body)
     if request.method == 'POST':
-        return Response(status=501)
+        body = models.create_client(db)
+        return jsonify(body)
+        # return Response(status=501)
 
 
 @app.route('/clients/<client>', methods=['HEAD', 'GET', 'DELETE', 'POST'])

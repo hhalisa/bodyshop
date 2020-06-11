@@ -1,3 +1,25 @@
+def create_client(db):
+    cur = db.cursor()
+    stmt = '''
+        PREPARE create_client AS
+        INSERT INTO client (cid, fname, lname, telephone)
+        VALUES ($1, $2, $3, $4)
+    '''
+    cur.execute(stmt)
+    cur.execute(f'execute create_client')
+    ds = cur.fetchall()
+    db.rollback()
+
+    c = {
+        'client': {
+            'client_id': '$1',
+            'name': '$2' + ' ' + '$3',
+            'phone': '$4',
+        },
+    }
+    return c
+
+
 def get_client(db, client_id):
     cur = db.cursor()
     stmt = '''
@@ -399,18 +421,27 @@ def get_vehicle_history(db, vehicle_id):
     db.rollback()
 
     v_history = []
-    for v in ds:
+    for row in ds:
+        record_exists = False
+        for h in v_history:
+            if row[4].__str__() != h['appointment']['appointment_date']:
+                continue
+            h['service'].append(row[5])
+            record_exists = True
+            break
+        if record_exists:
+            continue
         hist = {
             'appointment': {
-                'appointment_date': v[4].__str__(),
+                'appointment_date': row[4].__str__(),
             },
-            'service': [v[5]],
+            'service': [row[5]],
             'vehicle': [
                 {
-                    'make': v[1],
-                    'model': v[2],
-                    'year': v[3],
-                    'vehicle_id': v[0],
+                    'make': row[1],
+                    'model': row[2],
+                    'year': row[3],
+                    'vehicle_id': row[0],
                 },
             ],
         }
