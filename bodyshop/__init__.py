@@ -1,6 +1,7 @@
 from flask import Flask, request, Response, jsonify
 from bodyshop.db import get_db
 from bodyshop import models
+import json
 
 __version__ = '0.1.0'
 
@@ -40,10 +41,15 @@ def client_list():
         body = models.get_client_list(db)
         return jsonify(body)
     if request.method == 'POST':
-        return Response(status=501)
+        req_body = request.get_json()
+        resp_body = models.create_client(
+            db, req_body['client_id'], req_body['client_fname'],
+            req_body['client_lname'], req_body['client_phone'])
+        return jsonify(resp_body)
+        # return Response(status=501)
 
 
-@app.route('/clients/<client>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
+@ app.route('/clients/<client>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
 def client(client):
     db = get_db()
     if request.method == 'HEAD':
@@ -55,7 +61,7 @@ def client(client):
         return Response(status=501)
 
 
-@app.route('/clients/<client>/history', methods=['HEAD', 'GET'])
+@ app.route('/clients/<client>/history', methods=['HEAD', 'GET'])
 def client_history(client):
     db = get_db()
     if request.method == 'HEAD':
@@ -65,7 +71,7 @@ def client_history(client):
         return jsonify(body)
 
 
-@app.route('/vehicles', methods=['HEAD', 'GET', 'POST'])
+@ app.route('/vehicles', methods=['HEAD', 'GET', 'POST'])
 def vehicle_list():
     db = get_db()
     if request.method == 'HEAD':
@@ -77,7 +83,7 @@ def vehicle_list():
         return Response(status=501)
 
 
-@app.route('/vehicles/<vehicle>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
+@ app.route('/vehicles/<vehicle>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
 def vehicle(vehicle):
     db = get_db()
     if request.method == 'HEAD':
@@ -89,7 +95,7 @@ def vehicle(vehicle):
         return Response(status=501)
 
 
-@app.route('/vehicles/<vehicle>/history', methods=['HEAD', 'GET'])
+@ app.route('/vehicles/<vehicle>/history', methods=['HEAD', 'GET'])
 def vehicle_history(vehicle):
     db = get_db()
     if request.method == 'HEAD':
@@ -99,7 +105,7 @@ def vehicle_history(vehicle):
         return jsonify(body)
 
 
-@app.route('/services', methods=['HEAD', 'GET', 'DELETE', 'POST'])
+@ app.route('/services', methods=['HEAD', 'GET', 'DELETE', 'POST'])
 def service_list():
     db = get_db()
     if request.method == 'HEAD':
@@ -111,7 +117,7 @@ def service_list():
         return Response(status=501)
 
 
-@app.route('/services/<service>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
+@ app.route('/services/<service>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
 def service(service):
     db = get_db()
     if request.method == 'HEAD':
