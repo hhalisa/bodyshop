@@ -379,10 +379,13 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
+                                    "client_fname": {
+                                        "type": "string"
+                                    },
                                     "client_id": {
                                         "type": "string"
                                     },
-                                    "client_name": {
+                                    "client_lname": {
                                         "type": "string"
                                     },
                                     "client_phone": {

@@ -26,7 +26,8 @@
             type: 'object',
             properties: {
               client_id: { type: 'string' },
-              client_name: { type: 'string' },
+              client_fname: { type: 'string' },
+              client_lname: { type: 'string' },
               client_phone: { type: 'string' },
             },
           },
