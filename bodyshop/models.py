@@ -1,4 +1,4 @@
-def create_client(db):
+def create_client(db, client_id, client_fname, client_lname, client_phone):
     cur = db.cursor()
     stmt = '''
         PREPARE create_client AS
@@ -6,18 +6,53 @@ def create_client(db):
         VALUES ($1, $2, $3, $4)
     '''
     cur.execute(stmt)
-    cur.execute(f'execute create_client')
-    ds = cur.fetchall()
-    db.rollback()
+    cur.execute(
+        f"execute create_client({client_id}, '{client_fname}', '{client_lname}', {client_phone})"
+    )
+    db.commit()
 
     c = {
         'client': {
-            'client_id': '$1',
-            'name': '$2' + ' ' + '$3',
-            'phone': '$4',
+            'client_id': client_id,
+            'client_fname': client_fname,
+            'client_lname': client_lname,
+            'client_phone': client_phone,
         },
     }
+    # c = {
+    #    'client': {
+    #        'client_id': '$1',
+    #        'name': '$2' + ' ' + '$3',
+    #        'phone': '$4',
+    #    },
+    # }
     return c
+
+
+def create_appointment(db, '')
+
+
+cur = db.cursor()
+stmt = '''
+        PREPARE create_appointment AS
+        INSERT INTO 
+        VALUES
+    '''
+cur.execute(stmt)
+cur.execute(
+    f"execute create_appointment({}, '{}', '{}', {})"
+)
+db.commit()
+
+a = {
+    '': {
+        '': ,
+        '': ,
+        '': ,
+        '': ,
+    },
+}
+return a
 
 
 def get_client(db, client_id):
