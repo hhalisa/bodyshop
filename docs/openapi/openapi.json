@@ -109,16 +109,19 @@
                         "application/json": {
                             "schema": {
                                 "properties": {
+                                    "app_service_id": {
+                                        "type": "string"
+                                    },
+                                    "appointment_date": {
+                                        "type": "string"
+                                    },
                                     "appointment_id": {
                                         "type": "string"
                                     },
-                                    "service_date": {
+                                    "appointment_time": {
                                         "type": "string"
                                     },
                                     "service_id": {
-                                        "type": "string"
-                                    },
-                                    "service_time": {
                                         "type": "string"
                                     },
                                     "vehicle_id": {
@@ -193,7 +196,7 @@
                         "name": "appointment_id",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -234,7 +237,7 @@
                         "name": "appointment_id",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -299,6 +302,85 @@
                     }
                 },
                 "summary": "Get Appointment Information.",
+                "tags": [
+                    "appointment"
+                ]
+            }
+        },
+        "/appointments/{appointment_id}/service": {
+            "get": {
+                "description": "",
+                "operationId": "scheduled-service",
+                "parameters": [
+                    {
+                        "description": "Appointment ID.",
+                        "in": "path",
+                        "name": "appointment_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "service": [
+                                        {
+                                            "appointment_id": "F142",
+                                            "service_id": "10",
+                                            "service_type": "Oil Change"
+                                        },
+                                        {
+                                            "appointment_id": "F142",
+                                            "service_id": "11",
+                                            "service_type": "Fluid Check"
+                                        },
+                                        {
+                                            "appointment_id": "F142",
+                                            "service_id": "13",
+                                            "service_type": "Tire Rotation"
+                                        }
+                                    ]
+                                },
+                                "schema": {
+                                    "description": "Scheduled Service Information",
+                                    "properties": {
+                                        "service": {
+                                            "items": {
+                                                "properties": {
+                                                    "appointment_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "service_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "service_type": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "appointment_id"
+                                    ],
+                                    "title": "Scheduled Service Info",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Appointment Services Retrieved"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Get Scheduled Service for Appointment.",
                 "tags": [
                     "appointment"
                 ]

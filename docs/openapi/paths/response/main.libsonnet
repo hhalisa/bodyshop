@@ -188,6 +188,59 @@
       description: 'Bad Request',
     },
   },
+  scheduled_service:
+    {
+      '200': {
+        description: 'Appointment Services Retrieved',
+        content: {
+          'application/json': {
+            schema: {  //    '$schema': 'http://json-schema.org/draft-07/schema#',//    '$id': 'http://example.com/product.schema.json',
+              title: 'Scheduled Service Info',
+              description: 'Scheduled Service Information',
+              type: 'object',
+              properties: {
+                service: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    properties: {
+                      appointment_id: { type: 'string' },
+                      service_type: { type: 'string' },
+                      service_id: { type: 'string' },
+                    },
+                  },
+                },
+              },
+              required: [
+                'appointment_id',
+              ],
+            },
+            example: {
+              service: [
+                {
+                  appointment_id: 'F142',
+                  service_type: 'Oil Change',
+                  service_id: '10',
+                },
+                {
+                  appointment_id: 'F142',
+                  service_type: 'Fluid Check',
+                  service_id: '11',
+                },
+                {
+                  appointment_id: 'F142',
+                  service_type: 'Tire Rotation',
+                  service_id: '13',
+                },
+              ],
+            },
+          },
+        },
+      },
+      '400': {
+        description: 'Bad Request',
+      },
+    },
   client_list:
     {
       '200': {

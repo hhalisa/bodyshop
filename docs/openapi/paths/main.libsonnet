@@ -9,4 +9,6 @@
   service_list:: import 'service-list.libsonnet',
   vehicle_history:: import 'vehicle-history.libsonnet',
   client_history:: import 'client-history.libsonnet',
+  appointment_scheduled_service:: import
+    'appointment-scheduled-service.libsonnet',
 }
