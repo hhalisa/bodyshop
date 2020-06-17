@@ -17,7 +17,12 @@ def appointment_list():
         body = models.get_appointment_list(db)
         return jsonify(body)
     if request.method == 'POST':
-        return Response(status=501)
+        req_body = request.get_json()
+        resp_body = models.create_appointment(
+            db, req_body['appointment_date'], req_body['appointment_id'],
+            req_body['appointment_time'], req_body['vehicle_id'],
+            req_body['app_service_id'], req_body['service_id'])
+        return jsonify(resp_body)
 
 
 @app.route('/appointments/<appointment>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
@@ -29,7 +34,17 @@ def appointment(appointment):
         body = models.get_appointment(db, appointment)
         return jsonify(body)
     if request.method == 'DELETE':
+        return Response(status=200)
+
+
+@app.route('/appointments/<appointment>/service', methods=['HEAD', 'GET'])
+def appointment_service(appointment):
+    db = get_db()
+    if request.method == 'HEAD':
         return Response(status=501)
+    if request.method == 'GET':
+        body = models.get_scheduled_service(db, appointment)
+        return jsonify(body)
 
 
 @app.route('/clients', methods=['HEAD', 'GET', 'POST'])
@@ -46,7 +61,6 @@ def client_list():
             db, req_body['client_id'], req_body['client_fname'],
             req_body['client_lname'], req_body['client_phone'])
         return jsonify(resp_body)
-        # return Response(status=501)
 
 
 @ app.route('/clients/<client>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
@@ -80,7 +94,12 @@ def vehicle_list():
         body = models.get_vehicle_list(db)
         return jsonify(body)
     if request.method == 'POST':
-        return Response(status=501)
+        req_body = request.get_json()
+        resp_body = models.create_vehicle(
+            db, req_body['client_id'], req_body['vehicle_id'],
+            req_body['vehicle_make'], req_body['vehicle_milage'], req_body['vehicle_model'], req_body['vehicle_year'])
+        return jsonify(resp_body)
+#        return Response(status=501)
 
 
 @ app.route('/vehicles/<vehicle>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
@@ -114,7 +133,11 @@ def service_list():
         body = models.get_service_list(db)
         return jsonify(body)
     if request.method == 'POST':
-        return Response(status=501)
+        req_body = request.get_json()
+        resp_body = models.create_service(
+            db, req_body['service_id'], req_body['service_type'],
+            req_body['service_price'])
+        return jsonify(resp_body)
 
 
 @ app.route('/services/<service>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
