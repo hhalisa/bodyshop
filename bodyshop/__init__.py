@@ -25,7 +25,7 @@ def appointment_list():
         return jsonify(resp_body)
 
 
-@app.route('/appointments/<appointment>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
+@app.route('/appointments/<appointment>', methods=['HEAD', 'GET', 'DELETE'])
 def appointment(appointment):
     db = get_db()
     if request.method == 'HEAD':
@@ -34,6 +34,7 @@ def appointment(appointment):
         body = models.get_appointment(db, appointment)
         return jsonify(body)
     if request.method == 'DELETE':
+        body = models.delete_appointment(db, appointment)
         return Response(status=200)
 
 
@@ -63,7 +64,7 @@ def client_list():
         return jsonify(resp_body)
 
 
-@ app.route('/clients/<client>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
+@ app.route('/clients/<client>', methods=['HEAD', 'GET', 'DELETE'])
 def client(client):
     db = get_db()
     if request.method == 'HEAD':
@@ -72,7 +73,8 @@ def client(client):
         body = models.get_client(db, client)
         return jsonify(body)
     if request.method == 'DELETE':
-        return Response(status=501)
+        body = models.delete_client(db, client)
+        return Response(status=200)
 
 
 @ app.route('/clients/<client>/history', methods=['HEAD', 'GET'])
@@ -99,10 +101,9 @@ def vehicle_list():
             db, req_body['client_id'], req_body['vehicle_id'],
             req_body['vehicle_make'], req_body['vehicle_milage'], req_body['vehicle_model'], req_body['vehicle_year'])
         return jsonify(resp_body)
-#        return Response(status=501)
 
 
-@ app.route('/vehicles/<vehicle>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
+@ app.route('/vehicles/<vehicle>', methods=['HEAD', 'GET', 'DELETE'])
 def vehicle(vehicle):
     db = get_db()
     if request.method == 'HEAD':
@@ -111,7 +112,8 @@ def vehicle(vehicle):
         body = models.get_vehicle(db, vehicle)
         return jsonify(body)
     if request.method == 'DELETE':
-        return Response(status=501)
+        body = models.delete_vehicle(db, vehicle)
+        return Response(status=200)
 
 
 @ app.route('/vehicles/<vehicle>/history', methods=['HEAD', 'GET'])
@@ -124,7 +126,7 @@ def vehicle_history(vehicle):
         return jsonify(body)
 
 
-@ app.route('/services', methods=['HEAD', 'GET', 'DELETE', 'POST'])
+@ app.route('/services', methods=['HEAD', 'GET', 'POST'])
 def service_list():
     db = get_db()
     if request.method == 'HEAD':
@@ -140,7 +142,7 @@ def service_list():
         return jsonify(resp_body)
 
 
-@ app.route('/services/<service>', methods=['HEAD', 'GET', 'DELETE', 'POST'])
+@ app.route('/services/<service>', methods=['HEAD', 'GET', 'DELETE'])
 def service(service):
     db = get_db()
     if request.method == 'HEAD':
@@ -149,8 +151,5 @@ def service(service):
         body = models.get_service(db, service)
         return jsonify(body)
     if request.method == 'DELETE':
-        return Response(status=501)
-#    app.config.from_mapping(
-#        SECRET_KEY='dev',
-#        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
-#    )
+        body = models.delete_service(db, service)
+        return Response(status=200)

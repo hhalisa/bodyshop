@@ -17,25 +17,24 @@ def get_appointment_list(db):
     ds = cur.fetchall()
     db.rollback()
 
-    a_list = []
-    for v in ds:
+    x_list = {
+        'appointments': [],
+    }
+    for row in ds:
         x = {
-            'appointment': {
-                'appointment_date': v[4].__str__(),
-                'appointment_id': v[0],
-            },
+            'appointment_date': row[4].__str__(),
+            'appointment_id': row[0],
             'client': {
-                'client_id': v[1],
+                'client_id': row[1],
             },
-            'vehicle': [
+            'vehicle':
                 {
-                    'vehicle_id': v[2],
-                },
-            ],
+                    'vehicle_id': row[2],
+            },
         }
-        a_list.append(x)
+        x_list['appointments'].append(x)
 
-    return a_list
+    return x_list
 
 
 def create_appointment(db, appointment_date, appointment_id, appointment_time, vehicle_id, app_service_id, service_id):
@@ -61,7 +60,7 @@ def create_appointment(db, appointment_date, appointment_id, appointment_time, v
     )
     db.commit()
 
-    a = {
+    x = {
         'appointment_date': appointment_date,
         'appointment_id': appointment_id,
         'appointment_time': appointment_time,
@@ -69,7 +68,7 @@ def create_appointment(db, appointment_date, appointment_id, appointment_time, v
         'app_service_id': app_service_id,
         'service_id': service_id,
     }
-    return a
+    return x
 
 
 def get_scheduled_service(db, appointment_id):
@@ -86,20 +85,18 @@ def get_scheduled_service(db, appointment_id):
     ds = cur.fetchall()
     db.rollback()
 
-    s = []
+    x_list = {
+        'service': [],
+    }
     for row in ds:
-        ss_list = {
-            'service': [
-                {
-                    'appointment_id': row[0],
-                    'service_type': row[1],
-                    'service_id': row[2],
-                },
-            ],
+        x = {
+            'appointment_id': row[0],
+            'service_type': row[1],
+            'service_id': row[2],
         }
-        s.append(ss_list)
+        x_list['service'].append(x)
 
-    return s
+    return x_list
 
 
 def delete_appointment(db, appointment_id):
@@ -132,28 +129,22 @@ def get_appointment(db, appointment_id):
     '''
     cur.execute(stmt)
     cur.execute(f"execute get_appointment('{appointment_id}')")
-    ds = cur.fetchall()
+    row = cur.fetchall()
     db.rollback()
 
-    a = []
-    for v in ds:
-        x = {
-            'appointment': {
-                'appointment_date': v[3].__str__(),
-                'appointment_id': v[0],
-            },
-            'client': {
-                'client_id': v[1],
-            },
-            'vehicle': [
-                {
-                    'vehicle_id': v[2],
-                },
-            ],
-        }
-        a.append(x)
+    x = {
+        'appointment_date': row[0][3].__str__(),
+        'appointment_id': row[0][0],
+        'client': {
+            'client_id': row[0][1],
+        },
+        'vehicle':
+            {
+                'vehicle_id': row[0][2],
+        },
+    }
 
-    return a
+    return x
 
 
 def get_client_list(db):
@@ -172,18 +163,18 @@ def get_client_list(db):
     ds = cur.fetchall()
     db.rollback()
 
-    c_list = []
+    x_list = {
+        'clients': []
+    }
     for row in ds:
         x = {
-            'client': {
-                'client_id': row[0],
-                'name': row[1] + ' ' + row[2],
-                'phone': row[3],
-            },
+            'client_id': row[0],
+            'name': row[1] + ' ' + row[2],
+            'phone': row[3],
         }
-        c_list.append(x)
+        x_list['clients'].append(x)
 
-    return c_list
+    return x_list
 
 
 def create_client(db, client_id, client_fname, client_lname, client_phone):
@@ -199,15 +190,13 @@ def create_client(db, client_id, client_fname, client_lname, client_phone):
     )
     db.commit()
 
-    c = {
-        'client': {
-            'client_id': client_id,
-            'client_fname': client_fname,
-            'client_lname': client_lname,
-            'client_phone': client_phone,
-        },
+    x = {
+        'client_id': client_id,
+        'client_fname': client_fname,
+        'client_lname': client_lname,
+        'client_phone': client_phone,
     }
-    return c
+    return x
 
 
 def delete_client(db, client_id):
@@ -242,7 +231,7 @@ def get_client(db, client_id):
     ds = cur.fetchall()
     db.rollback()
 
-    c = {
+    x = {
         'client': {
             'client_id': ds[0][0],
             'name': ds[0][1] + ' ' + ds[0][2],
@@ -252,12 +241,12 @@ def get_client(db, client_id):
     }
     for row in ds:
         vid = row[4]
-        v = {
+        vehicle = {
             'vehicle_id': vid
         }
-        c['vehicle'].append(v)
+        x['vehicle'].append(vehicle)
 
-    return c
+    return x
 
 
 def get_client_history(db, client_id):
@@ -288,7 +277,7 @@ def get_client_history(db, client_id):
             break
         if record_exists:
             continue
-        hist = {
+        x = {
             'appointment': {
                 'appointment_date': row[5].__str__(),
             },
@@ -305,7 +294,7 @@ def get_client_history(db, client_id):
                 },
             ],
         }
-        c_history.append(hist)
+        c_history.append(x)
     return c_history
 
 
@@ -327,24 +316,22 @@ def get_vehicle_list(db):
     ds = cur.fetchall()
     db.rollback()
 
-    v_list = []
-    for v in ds:
+    x_list = {
+        'vehicles': []
+    }
+    for row in ds:
         x = {
             'client': {
-                'client_id': v[0],
+                'client_id': row[0],
             },
-            'vehicle': [
-                {
-                    'make': v[2],
-                    'model': v[3],
-                    'year': v[4],
-                    'vehicle_id': v[1],
-                },
-            ],
+            'make': row[2],
+            'model': row[3],
+            'year': row[4],
+            'vehicle_id': row[1],
         }
-        v_list.append(x)
+        x_list['vehicles'].append(x)
 
-    return v_list
+    return x_list
 
 
 def create_vehicle(db, client_id, vehicle_id, vehicle_make, vehicle_milage,
@@ -361,7 +348,7 @@ def create_vehicle(db, client_id, vehicle_id, vehicle_make, vehicle_milage,
     )
     db.commit()
 
-    a = {
+    x = {
         'client_id': client_id,
         'vehicle_id': vehicle_id,
         'vehicle_make': vehicle_make,
@@ -369,7 +356,7 @@ def create_vehicle(db, client_id, vehicle_id, vehicle_make, vehicle_milage,
         'vehicle_model': vehicle_model,
         'vehicle_year': vehicle_year,
     }
-    return a
+    return x
 
 
 def delete_vehicle(db, vehicle_id):
@@ -401,28 +388,22 @@ def get_vehicle(db, vehicle_id):
     '''
     cur.execute(stmt)
     cur.execute(f'execute get_vehicle({vehicle_id})')
-    ds = cur.fetchall()
+    row = cur.fetchall()
     db.rollback()
 
-    gv = []
-    for v in ds:
-        x = {
-            'client': {
-                'client_id': v[0],
-            },
-            'vehicle': [
-                {
-                    'make': v[2],
-                    'model': v[3],
-                    'year': v[4],
-                    'vehicle_id': v[1],
-                    'milage': v[5],
-                },
-            ],
-        }
-        gv.append(x)
-
-    return gv
+    x = {
+        'client': {
+            'client_id': row[0][0],
+        },
+        'vehicle': {
+            'make': row[0][2],
+            'milage': row[0][5],
+            'model': row[0][3],
+            'vehicle_id': row[0][1],
+            'year': row[0][4],
+        },
+    }
+    return x
 
 
 def get_vehicle_history(db, vehicle_id):
@@ -456,21 +437,20 @@ def get_vehicle_history(db, vehicle_id):
             break
         if record_exists:
             continue
-        hist = {
+        x = {
             'appointment': {
                 'appointment_date': row[4].__str__(),
             },
             'service': [row[5]],
-            'vehicle': [
+            'vehicle':
                 {
                     'make': row[1],
                     'model': row[2],
                     'year': row[3],
                     'vehicle_id': row[0],
-                },
-            ],
+            },
         }
-        v_history.append(hist)
+        v_history.append(x)
 
     return v_history
 
@@ -487,18 +467,16 @@ def get_service_list(db):
     ds = cur.fetchall()
     db.rollback()
 
-    s_list = []
-    for v in ds:
-        s = {
-            'service': [
-                {
-                    'price_in_dollars': v[2],
-                    'service_id': v[0],
-                    'service_type': v[1],
-                },
-            ],
+    s_list = {
+        'service': []
+    }
+    for row in ds:
+        x = {
+            'price_in_dollars': row[2],
+            'service_id': row[0],
+            'service_type': row[1],
         }
-        s_list.append(s)
+        s_list['service'].append(x)
 
     return s_list
 
@@ -516,12 +494,12 @@ def create_service(db, service_id, service_type, service_price):
     )
     db.commit()
 
-    s = {
+    x = {
         'service_id': service_id,
         'service_type': service_type,
         'service_price': service_price,
     }
-    return s
+    return x
 
 
 def delete_service(db, service_id):
@@ -547,18 +525,15 @@ def get_service(db, service_id):
     '''
     cur.execute(stmt)
     cur.execute(f'execute get_service({service_id})')
-    ds = cur.fetchall()
+    row = cur.fetchall()
     db.rollback()
 
-    s = []
-    for v in ds:
-        x = {
-            'service': {
-                'price': v[2],
-                'service_id': v[0],
-                'service_type': v[1],
-            },
-        }
-        s.append(x)
+    x = {
+        'service': {
+            'price': row[0][2],
+            'service_id': row[0][0],
+            'service_type': row[0][1],
+        },
+    }
 
-    return s
+    return x
