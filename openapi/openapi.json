@@ -1,0 +1,1366 @@
+{
+    "info": {
+        "contact": {
+            "email": "haleyhart123@gmail.com",
+            "name": "Haley Hartsaw"
+        },
+        "description": "This app allows persons to schedule, edit or delete\nappointments made for vehicle maintenance at the Bodyshop\n",
+        "title": "Bodyshop",
+        "version": "1.0.0"
+    },
+    "openapi": "3.0.0",
+    "paths": {
+        "/appointments": {
+            "get": {
+                "description": "",
+                "operationId": "appointment-list",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "appointments": [
+                                        {
+                                            "appointment_date": "",
+                                            "appointment_id": "F889",
+                                            "client": {
+                                                "client_id": "11291"
+                                            },
+                                            "vehicle": {
+                                                "vehicle_id": "2995"
+                                            }
+                                        },
+                                        {
+                                            "appointment_date": "",
+                                            "appointment_id": "F142",
+                                            "client": {
+                                                "client_id": "11021"
+                                            },
+                                            "vehicle": {
+                                                "vehicle_id": "6756"
+                                            }
+                                        }
+                                    ]
+                                },
+                                "schema": {
+                                    "description": "Appointment List",
+                                    "properties": {
+                                        "appointments": {
+                                            "items": {
+                                                "properties": {
+                                                    "appointment_date": {
+                                                        "type": "string"
+                                                    },
+                                                    "appointment_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "client": {
+                                                        "items": {
+                                                            "properties": {
+                                                                "client_id": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "type": "array"
+                                                    },
+                                                    "vehicle": {
+                                                        "items": {
+                                                            "properties": {
+                                                                "vehicle_id": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "type": "array"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "appointment_id"
+                                    ],
+                                    "title": "Appointment List",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "List of all Appointments:"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "List of all Appointments.",
+                "tags": [
+                    "appointment"
+                ]
+            },
+            "post": {
+                "description": "",
+                "operationId": "appointment-create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "appointment_id": {
+                                        "type": "string"
+                                    },
+                                    "service_date": {
+                                        "type": "string"
+                                    },
+                                    "service_id": {
+                                        "type": "string"
+                                    },
+                                    "service_time": {
+                                        "type": "string"
+                                    },
+                                    "vehicle_id": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "description": "Create an Appointment"
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Appointment Scheduled",
+                                    "properties": {
+                                        "appointment_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Appointment Scheduled",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Appointment Successfully Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "headers": {
+                            "Content-Length": {
+                                "description": "Appointment ID of appointment to be created.",
+                                "required": true,
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "Content-Type": {
+                                "description": "Bad Type",
+                                "required": true,
+                                "schema": {
+                                    "type": "string"
+                                }
+                            },
+                            "Date": {
+                                "description": "Appointment ID of appointment to be created.",
+                                "required": true,
+                                "schema": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                },
+                "summary": "Schedule an appointment.",
+                "tags": [
+                    "appointment"
+                ]
+            }
+        },
+        "/appointments/{appointment_id}": {
+            "delete": {
+                "description": "",
+                "operationId": "appointment-delete",
+                "parameters": [
+                    {
+                        "description": "Appointment ID.",
+                        "in": "path",
+                        "name": "appointment_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Appointment Deleted",
+                                    "properties": {
+                                        "appointment_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Appointment Deleted",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Appointment Successfully Deleted"
+                    }
+                },
+                "summary": "Delete appointment.",
+                "tags": [
+                    "appointment"
+                ]
+            },
+            "get": {
+                "description": "",
+                "operationId": "appointment",
+                "parameters": [
+                    {
+                        "description": "Appointment ID.",
+                        "in": "path",
+                        "name": "appointment_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "appointment_date": "2019-01-15T09:00:00+0000",
+                                    "appointment_id": "F889",
+                                    "client": {
+                                        "client_id": "11279"
+                                    },
+                                    "vehicle": {
+                                        "vehicle_id": "2763"
+                                    }
+                                },
+                                "schema": {
+                                    "description": "Appointment Information",
+                                    "properties": {
+                                        "appointment_date": {
+                                            "description": "Date and time of scheduled appointment",
+                                            "format": "date-time",
+                                            "type": "string"
+                                        },
+                                        "appointment_id": {
+                                            "description": "Unique Appointment ID",
+                                            "type": "string"
+                                        },
+                                        "client": {
+                                            "properties": {
+                                                "client_id": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "vehicle": {
+                                            "properties": {
+                                                "vehicle_id": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "required": [
+                                        "appointment_id",
+                                        "appointment_date",
+                                        "client",
+                                        "vehicle"
+                                    ],
+                                    "title": "Appointment Info",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Appointment Information Retrieved"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Get Appointment Information.",
+                "tags": [
+                    "appointment"
+                ]
+            }
+        },
+        "/appointments/{appointment}/services": {
+            "get": {
+                "description": "",
+                "operationId": "appointment-scheduled-service",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "appointment_id": "F889",
+                                    "service_id": "20",
+                                    "service_type": "State Inspectin"
+                                },
+                                "schema": {
+                                    "description": "Appointment Services",
+                                    "properties": {
+                                        "services": {
+                                            "items": {
+                                                "properties": {
+                                                    "appointment_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "service_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "service_type": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "title": "Appointment Services",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Appointment Scheduled Services"
+                    }
+                },
+                "summary": "Scheduled Services.",
+                "tags": [
+                    "appointment"
+                ]
+            }
+        },
+        "/clients": {
+            "get": {
+                "description": "",
+                "operationId": "client-list",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "client": [
+                                        {
+                                            "client_id": "11291",
+                                            "name": "Deku Midoriya",
+                                            "phone": "(999)222-8374"
+                                        },
+                                        {
+                                            "client_id": "11021",
+                                            "name": "John Smith",
+                                            "phone": "(555)676-9900"
+                                        },
+                                        {
+                                            "client_id": "11010",
+                                            "name": "Sally Jones",
+                                            "phone": "(555)666-7777"
+                                        }
+                                    ]
+                                },
+                                "schema": {
+                                    "description": "Client List",
+                                    "properties": {
+                                        "clients": {
+                                            "items": {
+                                                "properties": {
+                                                    "client_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "client_id"
+                                    ],
+                                    "title": "Client List",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "List of all Clients:"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "List of all Clients.",
+                "tags": [
+                    "client"
+                ]
+            },
+            "post": {
+                "description": "",
+                "operationId": "client-create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "client_id": {
+                                        "type": "string"
+                                    },
+                                    "client_name": {
+                                        "type": "string"
+                                    },
+                                    "client_phone": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "description": "Create a Client"
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Client Created",
+                                    "properties": {
+                                        "client_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Client Created",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Client Successfully Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Create a client.",
+                "tags": [
+                    "client"
+                ]
+            }
+        },
+        "/clients/{client_id}": {
+            "delete": {
+                "description": "",
+                "operationId": "client-delete",
+                "parameters": [
+                    {
+                        "description": "Client ID.",
+                        "in": "path",
+                        "name": "client_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Client Deleted",
+                                    "properties": {
+                                        "client_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Client Deleted",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Client Successfully Deleted"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Delete a client.",
+                "tags": [
+                    "client"
+                ]
+            },
+            "get": {
+                "description": "",
+                "operationId": "client",
+                "parameters": [
+                    {
+                        "description": "Client ID.",
+                        "in": "path",
+                        "name": "client_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "client": {
+                                        "client_id": "11021",
+                                        "name": "John Smith",
+                                        "phone": "(555)676-9900"
+                                    },
+                                    "vehicle": [
+                                        {
+                                            "vehicle_id": "6124"
+                                        },
+                                        {
+                                            "vehicle_id": "6756"
+                                        }
+                                    ]
+                                },
+                                "schema": {
+                                    "description": "Client Information",
+                                    "properties": {
+                                        "client": {
+                                            "properties": {
+                                                "client_id": {
+                                                    "type": "string"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "phone": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "vehicle": {
+                                            "items": {
+                                                "properties": {
+                                                    "vehicle_id": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "client_id"
+                                    ],
+                                    "title": "Client Info",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Client Information Retrieved"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Get Client Information.",
+                "tags": [
+                    "client"
+                ]
+            }
+        },
+        "/clients/{client_id}/history": {
+            "get": {
+                "description": "",
+                "operationId": "client-history",
+                "parameters": [
+                    {
+                        "description": "Client ID.",
+                        "in": "path",
+                        "name": "client_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "appointment": {
+                                            "appointment_date": "2020-03-09"
+                                        },
+                                        "client": {
+                                            "client_id": "11021"
+                                        },
+                                        "service": [
+                                            "State Inspection"
+                                        ],
+                                        "vehicle": [
+                                            {
+                                                "make": "Honda",
+                                                "model": "Accord",
+                                                "vehicle_id": "6124",
+                                                "year": "2020"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "appointment": {
+                                            "appointment_date": "2020-03-02"
+                                        },
+                                        "client": {
+                                            "client_id": "11021"
+                                        },
+                                        "service": [
+                                            "Oil Change",
+                                            "Fluid Check",
+                                            "Tire Rotation"
+                                        ],
+                                        "vehicle": [
+                                            {
+                                                "make": "Toyota",
+                                                "model": "Camry",
+                                                "vehicle_id": "6756",
+                                                "year": "2013"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "appointment": {
+                                            "appointment_date": "2020-06-01"
+                                        },
+                                        "client": {
+                                            "client_id": "11021"
+                                        },
+                                        "service": [
+                                            "State inspection"
+                                        ],
+                                        "vehicle": [
+                                            {
+                                                "make": "Toyota",
+                                                "model": "Camry",
+                                                "vehicle_id": "6756",
+                                                "year": "2013"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "schema": {
+                                    "description": "Client History",
+                                    "properties": {
+                                        "appointment": {
+                                            "items": {
+                                                "properties": {
+                                                    "appointment_date": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "client": {
+                                            "properties": {
+                                                "client_id": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "service": {
+                                            "items": {
+                                                "items": {
+                                                    "type": "string"
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "vehicle": {
+                                            "items": {
+                                                "properties": {
+                                                    "make": {
+                                                        "type": "string"
+                                                    },
+                                                    "model": {
+                                                        "type": "string"
+                                                    },
+                                                    "vehicle_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "year": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "client_id"
+                                    ],
+                                    "title": "Client Info",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Client History Retrieved"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Get Client History.",
+                "tags": [
+                    "client"
+                ]
+            }
+        },
+        "/services": {
+            "get": {
+                "description": "",
+                "operationId": "service-list",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "service": [
+                                        {
+                                            "price_in_dollars": "75",
+                                            "service_id": "20",
+                                            "service_type": "State Inspection"
+                                        },
+                                        {
+                                            "price_in_dollars": "50",
+                                            "service_id": "10",
+                                            "service_type": "Oil Change"
+                                        },
+                                        {
+                                            "price_in_dollars": "20",
+                                            "service_id": "11",
+                                            "service_type": "Fluid Check"
+                                        },
+                                        {
+                                            "price_in_dollars": "10",
+                                            "service_id": "13",
+                                            "service_type": "Tire Rotation"
+                                        },
+                                        {
+                                            "price_in_dollars": "75",
+                                            "service_id": "15",
+                                            "service_type": "Brake Pad Replacement"
+                                        }
+                                    ]
+                                },
+                                "schema": {
+                                    "description": "Service List",
+                                    "properties": {
+                                        "services": {
+                                            "items": {
+                                                "properties": {
+                                                    "price_in_dollars": {
+                                                        "type": "string"
+                                                    },
+                                                    "service_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "service_type": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "service_id"
+                                    ],
+                                    "title": "Service List",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "List of all Services:"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "List of all Services.",
+                "tags": [
+                    "service"
+                ]
+            },
+            "post": {
+                "description": "",
+                "operationId": "service-create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "service_id": {
+                                        "type": "string"
+                                    },
+                                    "service_price": {
+                                        "type": "string"
+                                    },
+                                    "service_type": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "description": "Create a Service"
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Service Added",
+                                    "properties": {
+                                        "service_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Service Added",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Service Successfully Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Create a service.",
+                "tags": [
+                    "service"
+                ]
+            }
+        },
+        "/services/{service_id}": {
+            "delete": {
+                "description": "",
+                "operationId": "service-delete",
+                "parameters": [
+                    {
+                        "description": "Service ID.",
+                        "in": "path",
+                        "name": "service_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Service Deleted",
+                                    "properties": {
+                                        "service_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Service Deleted",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Service Successfully Deleted"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Delete a service.",
+                "tags": [
+                    "service"
+                ]
+            },
+            "get": {
+                "description": "",
+                "operationId": "service-id",
+                "parameters": [
+                    {
+                        "description": "Service ID.",
+                        "in": "path",
+                        "name": "service_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "service": {
+                                        "price": "$75",
+                                        "service_id": "20",
+                                        "service_type": "State Inspection"
+                                    }
+                                },
+                                "schema": {
+                                    "description": "Service Information",
+                                    "properties": {
+                                        "service": {
+                                            "properties": {
+                                                "price": {
+                                                    "type": "string"
+                                                },
+                                                "service_id": {
+                                                    "type": "string"
+                                                },
+                                                "service_type": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "required": [
+                                        "service_id"
+                                    ],
+                                    "title": "Service Info",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Service Information Retrieved"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Get Service Information.",
+                "tags": [
+                    "service"
+                ]
+            }
+        },
+        "/vehicles": {
+            "get": {
+                "description": "",
+                "operationId": "vehicle-list",
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "vehicles": [
+                                        {
+                                            "client": {
+                                                "client_id": "11291"
+                                            },
+                                            "make": "Acura",
+                                            "model": "NSX",
+                                            "vehicle_id": "2763",
+                                            "year": "2021"
+                                        },
+                                        {
+                                            "client": {
+                                                "client_id": "11021"
+                                            },
+                                            "make": "Honda",
+                                            "model": "Accord",
+                                            "vehicle_id": "6124",
+                                            "year": "2020"
+                                        },
+                                        {
+                                            "client": {
+                                                "client_id": "11021"
+                                            },
+                                            "make": "Toyota",
+                                            "model": "Camry",
+                                            "vehicle_id": "6756",
+                                            "year": "2013"
+                                        }
+                                    ]
+                                },
+                                "schema": {
+                                    "description": "Vehicle List",
+                                    "properties": {
+                                        "vehicles": {
+                                            "items": {
+                                                "properties": {
+                                                    "client": {
+                                                        "items": {
+                                                            "properties": {
+                                                                "client_id": {
+                                                                    "type": "string"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        },
+                                                        "type": "array"
+                                                    },
+                                                    "make": {
+                                                        "type": "string"
+                                                    },
+                                                    "model": {
+                                                        "type": "string"
+                                                    },
+                                                    "vehicle_id": {
+                                                        "type": "string"
+                                                    },
+                                                    "year": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "type": "array"
+                                        }
+                                    },
+                                    "required": [
+                                        "vehicle_id"
+                                    ],
+                                    "title": "Vehicle List",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "List of all Vehicles:"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "List of all Vehicles.",
+                "tags": [
+                    "vehicle"
+                ]
+            },
+            "post": {
+                "description": "",
+                "operationId": "vehicle-create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "client_id": {
+                                        "type": "string"
+                                    },
+                                    "vehicle_id": {
+                                        "type": "string"
+                                    },
+                                    "vehicle_make": {
+                                        "type": "string"
+                                    },
+                                    "vehicle_milage": {
+                                        "type": "string"
+                                    },
+                                    "vehicle_model": {
+                                        "type": "string"
+                                    },
+                                    "vehicle_year": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    },
+                    "description": "Create a Vehicle"
+                },
+                "responses": {
+                    "201": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Vehicle Added",
+                                    "properties": {
+                                        "vehicle_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Vehicle Added",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Vehicle Successfully Created"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Create a vehicle.",
+                "tags": [
+                    "vehicle"
+                ]
+            }
+        },
+        "/vehicles/{vehicle_id}": {
+            "delete": {
+                "description": "",
+                "operationId": "vehicle-delete",
+                "parameters": [
+                    {
+                        "description": "Vehicle ID.",
+                        "in": "path",
+                        "name": "vehicle_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Vehicle Deleted",
+                                    "properties": {
+                                        "vehicle_id": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "title": "Vehicle Deleted",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Vehicle Successfully Deleted"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Delete a vehicle.",
+                "tags": [
+                    "vehicle"
+                ]
+            },
+            "get": {
+                "description": "",
+                "operationId": "vehicle-id",
+                "parameters": [
+                    {
+                        "description": "Vehicle ID.",
+                        "in": "path",
+                        "name": "vehicle_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": {
+                                    "client": {
+                                        "client_id": "11021"
+                                    },
+                                    "vehicle": {
+                                        "make": "Honda",
+                                        "milage": "506",
+                                        "model": "Accord",
+                                        "vehicle_id": "6124",
+                                        "year": "2020"
+                                    }
+                                },
+                                "schema": {
+                                    "description": "Vehicle Information",
+                                    "properties": {
+                                        "client": {
+                                            "properties": {
+                                                "client_id": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "vehicle": {
+                                            "properties": {
+                                                "make": {
+                                                    "type": "string"
+                                                },
+                                                "milage": {
+                                                    "type": "string"
+                                                },
+                                                "model": {
+                                                    "type": "string"
+                                                },
+                                                "vehicle_id": {
+                                                    "type": "string"
+                                                },
+                                                "year": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "required": [
+                                        "vehicle_id"
+                                    ],
+                                    "title": "Vehicle Info",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Vehicle Information Retrieved"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Get Vehicle Information.",
+                "tags": [
+                    "vehicle"
+                ]
+            }
+        },
+        "/vehicles/{vehicle_id}/history": {
+            "get": {
+                "description": "",
+                "operationId": "vehicle-hist",
+                "parameters": [
+                    {
+                        "description": "Vehicle ID.",
+                        "in": "path",
+                        "name": "vehicle_id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "example": [
+                                    {
+                                        "appointment": {
+                                            "appointment_date": "2020-03-02"
+                                        },
+                                        "service": [
+                                            "Fluid Check",
+                                            "Oil Change",
+                                            "Tire Rotation"
+                                        ],
+                                        "vehicle": {
+                                            "make": "Toyota ",
+                                            "model": "Camry",
+                                            "vehicle_id": "6756",
+                                            "year": "2013"
+                                        }
+                                    },
+                                    {
+                                        "appointment": {
+                                            "appointment_date": "2020-06-01"
+                                        },
+                                        "service": [
+                                            "State Inspection"
+                                        ],
+                                        "vehicle": {
+                                            "make": "Toyota ",
+                                            "model": "Camry",
+                                            "vehicle_id": "6756",
+                                            "year": "2013"
+                                        }
+                                    }
+                                ],
+                                "schema": {
+                                    "description": "Vehicle History",
+                                    "properties": {
+                                        "appointment": {
+                                            "properties": {
+                                                "appointment_date": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "service": {
+                                            "items": {
+                                                "type": "string"
+                                            },
+                                            "type": "array"
+                                        },
+                                        "vehicle": {
+                                            "properties": {
+                                                "make": {
+                                                    "type": "string"
+                                                },
+                                                "model": {
+                                                    "type": "string"
+                                                },
+                                                "vehicle_id": {
+                                                    "type": "string"
+                                                },
+                                                "year": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "required": [
+                                        "vehicle_id"
+                                    ],
+                                    "title": "Vehicle History",
+                                    "type": "object"
+                                }
+                            }
+                        },
+                        "description": "Vehicle History Retrieved"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                },
+                "summary": "Get Vehicle Service History.",
+                "tags": [
+                    "vehicle"
+                ]
+            }
+        }
+    }
+}
