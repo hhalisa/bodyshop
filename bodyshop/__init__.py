@@ -38,7 +38,7 @@ def appointment(appointment):
         return Response(status=200)
 
 
-@app.route('/appointments/<appointment>/service', methods=['HEAD', 'GET'])
+@app.route('/appointments/<appointment>/services', methods=['HEAD', 'GET'])
 def appointment_service(appointment):
     db = get_db()
     if request.method == 'HEAD':

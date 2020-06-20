@@ -209,9 +209,13 @@
             },
           },
           example: {
-            appointment_id: 'F889',
-            service_type: 'State Inspectin',
-            service_id: '20',
+            services: [
+              {
+                appointment_id: 'F889',
+                service_type: 'State Inspectin',
+                service_id: '20',
+              },
+            ],
           },
         },
       },

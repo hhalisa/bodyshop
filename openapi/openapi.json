@@ -193,7 +193,7 @@
                         "name": "appointment_id",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -231,7 +231,7 @@
                         "name": "appointment_id",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "string"
                         }
                     }
                 ],
@@ -301,18 +301,33 @@
                 ]
             }
         },
-        "/appointments/{appointment}/services": {
+        "/appointments/{appointment_id}/services": {
             "get": {
                 "description": "",
                 "operationId": "appointment-scheduled-service",
+                "parameters": [
+                    {
+                        "description": "Appointment ID.",
+                        "in": "path",
+                        "name": "appointment_id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "content": {
                             "application/json": {
                                 "example": {
-                                    "appointment_id": "F889",
-                                    "service_id": "20",
-                                    "service_type": "State Inspectin"
+                                    "services": [
+                                        {
+                                            "appointment_id": "F889",
+                                            "service_id": "20",
+                                            "service_type": "State Inspectin"
+                                        }
+                                    ]
                                 },
                                 "schema": {
                                     "description": "Appointment Services",

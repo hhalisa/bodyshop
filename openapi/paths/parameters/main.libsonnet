@@ -5,7 +5,7 @@
       'in': 'path',
       description: 'Appointment ID.',
       required: true,
-      schema: { type: 'integer' },
+      schema: { type: 'string' },
     },
   client_id:
     {
