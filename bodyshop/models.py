@@ -86,7 +86,7 @@ def get_scheduled_service(db, appointment_id):
     db.rollback()
 
     x_list = {
-        'service': [],
+        'services': [],
     }
     for row in ds:
         x = {
@@ -94,7 +94,7 @@ def get_scheduled_service(db, appointment_id):
             'service_type': row[1],
             'service_id': row[2],
         }
-        x_list['service'].append(x)
+        x_list['services'].append(x)
 
     return x_list
 
